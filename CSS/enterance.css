@@ -1,0 +1,19 @@
+#enterance{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+}
+.entrance{
+    margin-left:10rem;
+    margin-right:10rem;
+    width: 30rem;
+    font-size:4rem;
+    box-shadow: 15px 15px 20px rgba(153, 157, 70, 0.5);
+}
+#enterance a{
+    width:80vh;
+    display:flex;
+    justify-content: space-around;
+    text-decoration: none;
+}

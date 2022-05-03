@@ -1,0 +1,136 @@
+.intro{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    z-index: 2;
+    color: rgb(75,213,238);
+    font-family: 'Open Sans', sans-serif ;
+    font-weight:500;
+    font-size: 3.25rem;
+    width:100%;
+    opacity:0;
+    text-align:center;
+    animation: intro 6s ease-out 0.5s;
+}
+
+@keyframes intro {
+    0%{
+        opacity:0;
+    }
+    20%{
+        opacity:1;
+    }
+    50%{
+        opacity:1;
+    }
+    100%{
+        opacity:0;
+    }
+}
+.intro p{
+    
+}
+.logo{
+    opacity:0;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    z-index: 2;
+    animation: logo 7s ease-out 7s;
+}
+
+.logo img{
+    width:800px;
+    height:800px;
+}
+
+@keyframes logo{
+    0%{
+        opacity:1;
+        transform:translate(-50%, -50%) scale(2);
+    }
+    70%{
+        opacity:1;
+    }
+    100%{
+        opacity: 0;
+        transform:translate(-50%, -50%) scale(0.1);
+    }
+}
+#scroller p{
+    color:#ffe81f;
+}
+#scroller{
+    position:absolute;
+    font-family: sans-serif;
+    font-weight:bold;
+    text-align: justify;
+    overflow:hidden;
+    font-size: 350%;
+    height:50em;
+    width:50%;
+    bottom:0;
+    left:25%;
+    z-index:0;
+    transform: perspective(500px) rotateX(25deg);
+    transform-origin: 50% 100%;
+}
+
+#scroller::after{
+    position: absolute;
+    content: '';
+    bottom: 60%;
+    left:0;
+    right:0;
+    top:0;
+}
+
+#content{
+    position: absolute;
+    top:100%;
+    width: 100%;
+    animation: scoller 30s linear 10s;
+}
+
+@keyframes scoller{
+    0%{
+        top:100%;
+    }
+    100%{
+        top:-200%;    
+    }
+}
+#title, #subtitle{
+    
+    font-size:3.5rem;
+    text-align:center;
+    line-height: 300%;
+
+}
+.content{
+    text-align:center;
+    text-transform: uppercase;
+    line-height: 200%;
+}
+#play span{
+    position:absolute;
+    top:50%;
+    left:50%;
+    box-shadow: 15px 15px 20px rgba(153, 157, 70, 0.5);
+    transform:translate(-50%, -50%);
+    z-index: 2;
+    font-size:3rem;
+    animation: span 3s ease 27s forwards;
+    opacity: 0;
+    
+}
+@keyframes span{
+    0%{
+        opacity:0.2;
+    }
+    100%{
+        opacity:1;
+    }
+}
