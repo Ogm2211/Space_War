@@ -1,5 +1,9 @@
 const stars = 200
-
+if(document.getElementById("my_audio")){
+window.onload=function(){
+    document.getElementById("my_audio").play();
+  }
+}
 for(let i=0 ; i<stars ; i++){
     let star = document.createElement('div')
     star.className = 'stars'
