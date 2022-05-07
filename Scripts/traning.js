@@ -7,10 +7,12 @@ const yodaRight = document.querySelector('.yodaright')
 const yodaText3 = document.querySelector('.yodaText3')
 const body = document.querySelector('body')
 const btn = document.querySelector('span')
-// let spaceShipPosition  = window.getComputedStyle(spaceShip).getPropertyValue('left')
-let spaceShipPosition = 1480
-let yodaLeftPosition = 950
-let yodaRightPosition = 2050
+let spaceShipPosition  = parseInt(window.getComputedStyle(spaceShip).getPropertyValue('left'))
+let yodaLeftPosition = ((innerWidth * parseInt(window.getComputedStyle(yodaleft).getPropertyValue('left'))) / 100) + 250
+console.log(yodaLeftPosition)
+console.log(spaceShipPosition)
+
+let yodaRightPosition = ((innerWidth * parseInt(window.getComputedStyle(yodaRight).getPropertyValue('left'))) / 100) -100
 window.onload = function() {
     yoda.classList.replace("displayNone",'in')
     yodaText.classList.replace('displayNone','in')

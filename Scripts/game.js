@@ -55,7 +55,7 @@ class Enemy {
     constructor(){
         this.velocity = {
             x:0,
-            y:20    
+            y:3
         }
 
         const image = new Image()
@@ -88,6 +88,9 @@ class Enemy {
             this.draw()
             this.position.x += this.velocity.x
             this.position.y += this.velocity.y
+            if(this.position.y > canvas.height-player.height-80){
+                game.active = false
+            }
         
         }
     }
@@ -113,10 +116,14 @@ class Projectile{
         
     }
 }
-
+game = {
+    active:true
+}
 const player = new Player()
 const projectiles = []
 const enemys = []
+
+
 const keys = {
     ArrowLeft: {
         pressed:false
@@ -130,10 +137,14 @@ const keys = {
 }
 setInterval(()=>{
     enemys.push(new Enemy())
-},1000  )
+},2000  )
 
 function animate(){
+   
     requestAnimationFrame(animate)
+    if(!game.active){
+        return
+    }
     c.fillStyle = 'black'
     c.fillRect(0, 0 , canvas.width , canvas.height)
     player.update()
@@ -146,18 +157,14 @@ function animate(){
               (projectile.position.x > enemy.position.x && projectile.position.x < enemy.position.x+enemy.width))
             {
                setTimeout(()=>{
-                   enemys.splice(i,1)
-                   projectiles.splice(j,1)
+                enemys.splice(i,1)
+                projectiles.splice(j,1)
                },0)
            }
            
        })
     })
-    enemys.forEach((enemy)=>{
-        if(enemy.position.y > canvas.height){
-            cancelAnimationFrame(animate)
-        }
-    })
+
     projectiles.forEach( (projectile , index) => {
         if(projectile.position.y+ projectile.radius <= 0){
             setTimeout(()=>{
@@ -170,11 +177,11 @@ function animate(){
     })
     
     if(keys.ArrowLeft.pressed && player.position.x >=0){
-        player.velocity.x = -15
+        player.velocity.x = -25
         player.rotation = -0.25
     }
     else if(keys.ArrowRight.pressed && player.position.x + player.width <= canvas.width){
-        player.velocity.x = 15
+        player.velocity.x = 25
         player.rotation = 0.25
     }
     else{
