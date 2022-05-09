@@ -2,3 +2,12 @@ body{
     margin: 0;
 
 }
+p{
+    position: fixed;
+    color:white;
+    left:2rem;
+    top:2rem;
+    margin: 0;
+    font-size: 1.5rem;
+    font-family: sans-serif;
+}
