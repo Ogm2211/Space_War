@@ -1,6 +1,7 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 const score = document.querySelector('#score')
+const stage = document.querySelector('#stage')
 canvas.width = innerWidth
 canvas.height = innerHeight
 let scorePoint = 0
@@ -57,10 +58,10 @@ class Player {
     }
 }
 class Enemy {
-    constructor(){
+    constructor(velocityY){
         this.velocity = {
             x:0,
-            y:2
+            y:velocityY
         }
 
         const image = new Image()
@@ -187,9 +188,54 @@ const keys = {
         pressed:false
     }
 }
-setInterval(()=>{
-    enemys.push(new Enemy())
+stage.innerHTML = "Stage 1"
+setTimeout(()=>{
+    stage.innerHTML = " "
+},1000)
+let Stage1 = setInterval(()=>{
+    enemys.push(new Enemy(2))
 },1750  )
+setTimeout(() => {
+    stage.innerHTML = "Stage 2"
+    setTimeout(()=>{
+    stage.innerHTML = " "
+    },1000)
+    clearInterval(Stage1);
+    let Stage2 = setInterval(() => {
+        enemys.push(new Enemy(4))
+    },1500)
+    setTimeout(() => {
+        stage.innerHTML = "Stage 3"
+        setTimeout(()=>{
+        stage.innerHTML = " "
+        },1000)
+        clearInterval(Stage1);
+        let Stage2 = setInterval(() => {
+            enemys.push(new Enemy(6))
+        },1250)
+        setTimeout(() => {
+            stage.innerHTML = "Stage 4"
+            setTimeout(()=>{
+            stage.innerHTML = " "
+            },1000)
+            clearInterval(Stage1);
+            let Stage2 = setInterval(() => {
+                enemys.push(new Enemy(8))
+            },1000)
+            setTimeout(() => {
+                stage.innerHTML = "Stage 5"
+                setTimeout(()=>{
+                stage.innerHTML = " "
+                },1000)
+                clearInterval(Stage1);
+                let Stage2 = setInterval(() => {
+                    enemys.push(new Enemy(10))
+                },750)
+            }, 60000);
+        }, 45000);
+    }, 30000);
+}, 15000);
+
 
 setInterval(()=>{
     let current = Math.floor(Math.random()* enemys.length)
