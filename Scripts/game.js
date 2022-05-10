@@ -8,7 +8,8 @@ let scorePoint = 0
 let gameOver  = new Image()
 gameOver.src = '../Images/uploads_game_over_game_over_PNG23.png'
 let globalScale = 1
-
+let xMultiplayer = 1
+let yMultiplayer = 1
 class Player {
     constructor(){
         this.velocity = {
@@ -166,6 +167,56 @@ class Particle{
         this.opacity -= 0.01
     }
 }
+class SuperPower{
+    constructor() {
+        this.position = {
+            x: Math.random()*canvas.width,
+            y: 40
+        }
+        this.velocity = {
+            x: 10,
+            y: 10
+        }
+        this.radius = 20
+    }
+
+    draw() {
+        c.beginPath()
+        c.arc(this.position.x , this.position.y, this.radius, 0, Math.PI * 2 )
+        c.fillStyle = 'orange'
+        c.fill()
+        c.closePath()
+    }
+
+    update(){
+        this.draw()
+     
+        if(this.position.x > canvas.width-50 && this.position.y < canvas.height - player.height ){
+            xMultiplayer *= -1
+            this.position.x += (this.velocity.x * xMultiplayer)
+        }
+        else if(this.position.y > canvas.height - player.height && this.position.x < canvas.width ){
+            yMultiplayer *= -1
+            this.position.y += (this.velocity.y * yMultiplayer)
+        }
+        else if(this.position.y < 30 && this.position.x < canvas.width){
+            yMultiplayer *= -1
+            this.position.y += (this.velocity.y * yMultiplayer)
+        }
+        else if(this.position.x < 0 && this.position.y < canvas.height - player.height ){
+            xMultiplayer *= -1
+            this.position.x += (this.velocity.x * xMultiplayer)
+        }
+        else{
+            this.position.x += (this.velocity.x * xMultiplayer)
+            this.position.y += (this.velocity.y * yMultiplayer)
+        }
+        
+        
+    }
+
+
+}
 game = {
     active:true,
     activeLine : false
@@ -176,7 +227,7 @@ const enemys = []
 const enemyProjectiles = []
 const particles = []
 const stars = []
-
+const superPowers  = []
 const keys = {
     ArrowLeft: {
         pressed:false
@@ -188,6 +239,11 @@ const keys = {
         pressed:false
     }
 }
+setTimeout(()=>{
+   setInterval(()=>{
+    superPowers.push(new SuperPower())
+   },10000) 
+},0)
 stage.innerHTML = "Stage 1"
 setTimeout(()=>{
     stage.innerHTML = " "
@@ -296,6 +352,33 @@ function animate(){
         }))
     }
     player.update()
+    enemys.forEach((enemy) => {
+        enemy.update()
+    })
+    superPowers.forEach((superPower, index)=>{
+        superPower.update()
+        if(superPower.position.y  >= player.position.y && (superPower.position.x > player.position.x && superPower.position.x < player.position.x+player.width))
+            {
+                superPowers.splice(index,1)
+                enemys.forEach((enemy,index)=>{
+                    enemys.splice(index,1 )
+                    for(let i =0 ; i< 15 ; i++){
+                        particles.push(new Particle({
+                            position:{
+                                x:enemy.position.x + enemy.width /2,
+                                y:enemy.position.y + enemy.height / 2
+                            },
+                            velocity:{
+                                x:(Math.random()-0.5)*2,
+                                y:(Math.random()-0.5)*2
+                            },
+                            radius: Math.random() *3,
+                            color: "#BAA0DE"
+                        }))
+                    }
+                })
+            }
+    })
     particles.forEach((particle,index) =>{
         if(particle.opacity <= 0){
             particles.splice(index,1)
@@ -304,9 +387,7 @@ function animate(){
         particle.update()
         }
     })
-    enemys.forEach((enemy) => {
-        enemy.update()
-    })
+    
     enemyProjectiles.forEach((enemyProjectile)=>{
         enemyProjectile.update()
         if(enemyProjectile.position.y  >= player.position.y && (enemyProjectile.position.x > player.position.x && enemyProjectile.position.x < player.position.x+player.width)){
